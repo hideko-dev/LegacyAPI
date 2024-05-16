@@ -7,11 +7,7 @@ class Title {
 
     companion object {
 
-        fun send(player: Player, title: String, subtitle: String) {
-            Titles(title, subtitle, 10, 30, 10).send(player)
-        }
-
-        fun custom(player: Player, title: String, subtitle: String, fadeIn: Int, stay: Int, fadeOut: Int) {
+        fun send(player: Player, title: String, subtitle: String = "", fadeIn: Int = 10, stay: Int = 30, fadeOut: Int = 10) {
             Titles(title, subtitle, fadeIn, stay, fadeOut).send(player)
         }
 
