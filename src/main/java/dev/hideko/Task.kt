@@ -6,20 +6,24 @@ import org.bukkit.scheduler.BukkitTask
 
 class Task {
 
-    fun late(plugin: JavaPlugin, later: Long, task: (Unit) -> Unit): BukkitTask? {
-        return object: BukkitRunnable() {
-            override fun run() {
-                task(cancel())
-            }
-        }.runTaskLater(plugin, later)
-    }
+    companion object {
 
-    fun timer(plugin: JavaPlugin, later: Long, period: Long, task: (Unit) -> Unit): BukkitTask? {
-        return object: BukkitRunnable() {
-            override fun run() {
-                task(cancel())
-            }
-        }.runTaskTimer(plugin, later, period)
+        fun late(plugin: JavaPlugin, later: Long, task: (cancel: () -> Unit) -> Unit): BukkitTask? {
+            return object : BukkitRunnable() {
+                override fun run() {
+                    task { cancel() }
+                }
+            }.runTaskLater(plugin, later)
+        }
+
+        fun timer(plugin: JavaPlugin, later: Long, period: Long, task: (cancel: () -> Unit) -> Unit): BukkitTask? {
+            return object : BukkitRunnable() {
+                override fun run() {
+                    task { cancel() }
+                }
+            }.runTaskTimer(plugin, later, period)
+        }
+
     }
 
 }
