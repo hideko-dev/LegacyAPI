@@ -6,12 +6,16 @@ import org.bukkit.entity.Player
 
 class Messages {
 
-    fun sendActionBar(player: Player, message: String) {
-        ActionBar.sendActionBar(player, message)
-    }
+    companion object {
 
-    fun sendTitle(player: Player, title: String, subtitle: String) {
-        Titles(title, subtitle, 10, 30, 10).send(player)
+        fun sendActionBar(player: Player, message: String) {
+            ActionBar.sendActionBar(player, message)
+        }
+
+        fun sendTitle(player: Player, title: String, subtitle: String) {
+            Titles(title, subtitle, 10, 30, 10).send(player)
+        }
+
     }
 
 }
