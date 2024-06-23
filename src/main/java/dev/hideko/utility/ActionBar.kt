@@ -1,22 +1,25 @@
-package dev.hideko
+package dev.hideko.utility
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 
+
 class ActionBar {
 
-    fun send(ply: Player, message: String) {
-        if (!ply.isOnline) return
+    fun send(player: Player?, message: String) {
+        if (player == null) return
+        if (!player.isOnline) return
 
         var version = Bukkit.getServer().javaClass.getPackage().name
         version = version.substring(version.lastIndexOf(".") + 1)
+
         val old = version.equals("v1_8_R1", ignoreCase = true) || version.startsWith("v1_7_")
 
         try {
             val craftPlayerClass = Class.forName("org.bukkit.craftbukkit.$version.entity.CraftPlayer")
-            val craftPlayer = craftPlayerClass.cast(ply)
+            val craftPlayer = craftPlayerClass.cast(player)
             var packet: Any
             val packetPlayOutChatClass = Class.forName("net.minecraft.server.$version.PacketPlayOutChat")
             val packetClass = Class.forName("net.minecraft.server.$version.Packet")
